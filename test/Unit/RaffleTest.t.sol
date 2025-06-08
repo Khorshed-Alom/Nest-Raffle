@@ -13,7 +13,6 @@ contract RaffleTest is Test {
     address public PLAYER = makeAddr("player");
     uint256 public STARTING_PLAYER_BALANCE = 10 ether;
 
-
     event RaffleEntered(address indexed players);
     event WinnerPicked(address indexed winner);
 
@@ -33,7 +32,7 @@ contract RaffleTest is Test {
         interval = config.interval;
         vrfCoordinator = config.vrfCoordinator;
         gasLane = config.gasLane;
-        callbackGasLimit  = config.callbackGasLimit;
+        callbackGasLimit = config.callbackGasLimit;
         subscriptionId = config.subscriptionId;
 
         vm.deal(PLAYER, STARTING_PLAYER_BALANCE);
@@ -65,11 +64,15 @@ contract RaffleTest is Test {
         //arrange
         vm.prank(PLAYER);
         //act
-        /**@dev First three true false given to define indexed, if any of first three element is indexed in evemt then true otherwise false.
-        * - the forth true false is given to define if other element exist or not.
-        * @notice We need to copy past the events in here (top).
-        */
-        vm.expectEmit(true, false, false, false, address(raffle)); /**@dev first three true false given to define if  any of first */
+        /**
+         * @dev First three true false given to define indexed, if any of first three element is indexed in evemt then true otherwise false.
+         * - the forth true false is given to define if other element exist or not.
+         * @notice We need to copy past the events in here (top).
+         */
+        vm.expectEmit(true, false, false, false, address(raffle));
+        /**
+         * @dev first three true false given to define if  any of first
+         */
         emit RaffleEntered(PLAYER);
         //asert
         raffle.enterRaffle{value: entranceFee}();
@@ -86,7 +89,5 @@ contract RaffleTest is Test {
         vm.expectRevert(Raffle.Raffle__RaffleNotOpen.selector);
         vm.prank(PLAYER);
         raffle.enterRaffle{value: entranceFee}();
-
-
     }
 }

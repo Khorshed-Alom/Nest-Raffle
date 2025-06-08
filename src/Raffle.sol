@@ -104,7 +104,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
         i_keyHash = gasLane;
         i_callbackGasLimit = callbackGasLimit;
         i_subscriptionId = subscriptionId;
-        
+
         s_lastTimeStamp = block.timestamp;
         s_raffleState = RaffleState.OPEN;
     }
@@ -168,11 +168,10 @@ contract Raffle is VRFConsumerBaseV2Plus {
                 // Set nativePayment to true to pay for VRF requests with Sepolia ETH instead of LINK
                 VRFV2PlusClient.ExtraArgsV1({nativePayment: false})
             )
+        });
         /**
          * @dev fasle = Pay using LINK token, true = pay in native ETH (like Sepolia ETH)
          */
-
-        });
         s_vrfCoordinator.requestRandomWords(request);
     }
 
@@ -208,5 +207,4 @@ contract Raffle is VRFConsumerBaseV2Plus {
     function getPlayers(uint256 index) external view returns (address) {
         return s_players[index];
     }
-
 }
