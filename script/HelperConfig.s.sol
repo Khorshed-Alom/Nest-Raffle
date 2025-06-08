@@ -24,6 +24,7 @@ contract HelperConfig is CodeConstant, Script {
         bytes32 gasLane;
         uint32 callbackGasLimit;
         uint256 subscriptionId;
+        address link;
     }
 
     NetworkConfig public localNetworkConfig;
@@ -54,7 +55,8 @@ contract HelperConfig is CodeConstant, Script {
             vrfCoordinator: 0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B,
             gasLane: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae,
             callbackGasLimit: 50000, //50,000
-            subscriptionId: 0
+            subscriptionId: 0,
+            link: 0x779877A7B0D9E8603169DdbD7836e478b4624789 //LINK token contract, sepolia eth testnet address in chainlkink.
         });
     }
 
