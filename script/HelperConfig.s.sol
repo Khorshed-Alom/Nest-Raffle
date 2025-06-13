@@ -1,9 +1,10 @@
 //SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import {Script} from "../lib/forge-std/src/Script.sol";
+import {Script} from "lib/forge-std/src/Script.sol";
 import {VRFCoordinatorV2_5Mock} from
-    "../lib/chainlink-brownie-contracts/contracts/src/v0.8/vrf/mocks/VRFCoordinatorV2_5Mock.sol";
+    "lib/chainlink-brownie-contracts/contracts/src/v0.8/vrf/mocks/VRFCoordinatorV2_5Mock.sol";
+import {LinkToken} from "test/mocks/LinkToken.sol";
 
 abstract contract CodeConstant {
     uint96 public MOCK_BASE_FEE = 0.25 ether; //default value
@@ -55,7 +56,7 @@ contract HelperConfig is CodeConstant, Script {
             vrfCoordinator: 0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B,
             gasLane: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae,
             callbackGasLimit: 50000, //50,000
-            subscriptionId: 0,
+            subscriptionId: 108262402677641204476400872628420306000636518764216563485536883797123206561773, // subscription id from chainlink
             link: 0x779877A7B0D9E8603169DdbD7836e478b4624789 //LINK token contract, sepolia eth testnet address in chainlkink.
         });
     }
@@ -70,6 +71,7 @@ contract HelperConfig is CodeConstant, Script {
         vm.startBroadcast();
         VRFCoordinatorV2_5Mock vrfCoordinator =
             new VRFCoordinatorV2_5Mock(MOCK_BASE_FEE, MOCK_GAS_PRICE_LINK, MOCK_WEI_PER_UINT_LINK);
+        LinkToken linkToken = new LinkToken();
         vm.stopBroadcast();
 
         localNetworkConfig = NetworkConfig({
@@ -78,7 +80,8 @@ contract HelperConfig is CodeConstant, Script {
             vrfCoordinator: address(vrfCoordinator),
             gasLane: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae, // Dosen't matter
             callbackGasLimit: 50000, // Dosen't matter
-            subscriptionId: 0 // Might have to fix this
+            subscriptionId: 0, // Might have to fix this
+            link: address(linkToken)
         });
         return localNetworkConfig;
     }

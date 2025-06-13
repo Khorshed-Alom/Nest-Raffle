@@ -89,6 +89,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
     // Event
     event RaffleEntered(address indexed players);
     event WinnerPicked(address indexed winner);
+    event RequestedRaffleWinner(uint256 indexed requestId);
 
     // VRFConsumerBaseV2Plus needs a address fron chainlink just like price feed address
     constructor(
@@ -172,7 +173,8 @@ contract Raffle is VRFConsumerBaseV2Plus {
         /**
          * @dev fasle = Pay using LINK token, true = pay in native ETH (like Sepolia ETH)
          */
-        s_vrfCoordinator.requestRandomWords(request);
+        uint256 requestId = s_vrfCoordinator.requestRandomWords(request);
+        emit RequestedRaffleWinner(requestId); // Mock vrf is also emiting requistId.
     }
 
     // CEI: Checks, Effect, Iteractions Pattern
