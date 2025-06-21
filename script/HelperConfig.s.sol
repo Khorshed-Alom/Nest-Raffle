@@ -26,6 +26,7 @@ contract HelperConfig is CodeConstant, Script {
         uint32 callbackGasLimit;
         uint256 subscriptionId;
         address link;
+        address account;
     }
 
     NetworkConfig public localNetworkConfig;
@@ -57,7 +58,8 @@ contract HelperConfig is CodeConstant, Script {
             gasLane: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae,
             callbackGasLimit: 50000, //50,000
             subscriptionId: 108262402677641204476400872628420306000636518764216563485536883797123206561773, // subscription id from chainlink
-            link: 0x779877A7B0D9E8603169DdbD7836e478b4624789 //LINK token contract, sepolia eth testnet address in chainlkink.
+            link: 0x779877A7B0D9E8603169DdbD7836e478b4624789, //LINK token contract, sepolia eth testnet address in chainlkink.
+            account: 0x8C62e92c4293B11fEDa7dbcFEACe5717DCF84EEA // my wallet account address.
         });
     }
 
@@ -81,7 +83,8 @@ contract HelperConfig is CodeConstant, Script {
             gasLane: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae, // Dosen't matter
             callbackGasLimit: 50000, // Dosen't matter
             subscriptionId: 0, // Might have to fix this
-            link: address(linkToken)
+            link: address(linkToken),
+            account: 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38 // foundry default sender address from base.sol
         });
         return localNetworkConfig;
     }
